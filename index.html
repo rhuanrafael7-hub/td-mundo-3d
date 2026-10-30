@@ -99,7 +99,6 @@ footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; border
 
   <header>
     <div class="tagline">Catálogo de Produtos</div>
-    <!-- Duplo clique aqui abre o painel admin -->
     <h1 id="secretAdminTrigger" title="Painel Admin">TD Mundo 3D</h1>
     <p>Ideias que ganham forma. Escolha seu modelo e feche o pedido pelo WhatsApp.</p>
   </header>
@@ -119,6 +118,7 @@ footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; border
       <button class="close-admin" onclick="toggleAdmin()">✕</button>
     </div>
 
+    <!-- Login -->
     <div id="loginSection" class="admin-form-group">
       <label>Senha de Acesso</label>
       <input id="pinInput" type="password" placeholder="Digite a senha">
@@ -127,6 +127,7 @@ footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; border
       <div style="color: #777; font-size: 12px; margin-top: 4px;">Senha padrão para teste: <b>1234</b></div>
     </div>
 
+    <!-- Dashboard -->
     <div id="dashboardSection" style="display:none;">
       <div class="admin-nav-tabs">
         <button class="admin-nav-tab" id="navAdd" onclick="mudarTabAdmin('add')">Adicionar</button>
@@ -135,6 +136,7 @@ footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; border
         <button class="admin-nav-tab" id="navRemove" onclick="mudarTabAdmin('remove')">Remover</button>
       </div>
 
+      <!-- Aba Adicionar Produto -->
       <div id="tabAddContent" style="display:none;">
         <div style="font-size:15px; font-weight:600; color:#111; margin-bottom:12px;">Adicionar Novo Produto</div>
         <div class="admin-form-group">
@@ -157,6 +159,7 @@ footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; border
         <button class="admin-primary-btn" onclick="salvarNovoProduto()">Adicionar Produto</button>
       </div>
 
+      <!-- Aba Criar Seção -->
       <div id="tabCreateContent" style="display:none;">
         <div style="font-size:15px; font-weight:600; color:#111; margin-bottom:12px;">Criar Nova Seção</div>
         <div class="admin-form-group">
@@ -171,6 +174,7 @@ footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; border
         <button class="admin-primary-btn" onclick="criarSecao()">Criar Seção</button>
       </div>
 
+      <!-- Aba Editar (Lista) -->
       <div id="tabEditContent" style="display:none;">
         <div class="sub-admin-tabs">
           <button class="sub-admin-tab" id="subEditProdBtn" onclick="mudarSubEdit('produtos')">Produtos</button>
@@ -180,9 +184,61 @@ footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; border
         <div id="listaEditarSecoesContainer" style="display:none;"></div>
       </div>
 
+      <!-- Formulário de Edição de Produto -->
+      <div id="tabEditFormContent" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:15px; font-weight:600; color:#111;">Editar Produto</span>
+          <button onclick="mudarTabAdmin('edit'); mudarSubEdit('produtos');" style="font-size:12px; color:#0066cc; text-decoration:underline;">← Voltar</button>
+        </div>
+        <input type="hidden" id="editProdId">
+        <div class="admin-form-group">
+          <label>Alterar Foto</label>
+          <input id="editProdFotoInput" type="file" accept="image/*">
+          <img id="editProdPreview" src="" alt="" style="display:none; width:100%; height:120px; object-fit:cover; border-radius:6px; margin-top:6px;">
+        </div>
+        <div class="admin-form-group">
+          <label>Nome do Produto</label>
+          <input id="editProdNome" type="text">
+        </div>
+        <div class="admin-form-group">
+          <label>Valor (R$)</label>
+          <input id="editProdValor" type="text">
+        </div>
+        <div class="admin-form-group">
+          <label>Seção</label>
+          <select id="editProdSecaoSelect"></select>
+        </div>
+        <button class="admin-primary-btn" onclick="salvarEdicaoProduto()">Salvar Alterações</button>
+      </div>
+
+      <!-- Formulário de Edição de Seção -->
+      <div id="tabEditSecaoFormContent" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:15px; font-weight:600; color:#111;">Editar Seção</span>
+          <button onclick="mudarTabAdmin('edit'); mudarSubEdit('secoes');" style="font-size:12px; color:#0066cc; text-decoration:underline;">← Voltar</button>
+        </div>
+        <input type="hidden" id="editSecaoId">
+        <div class="admin-form-group">
+          <label>Alterar Foto da Seção</label>
+          <input id="editSecaoFotoInput" type="file" accept="image/*">
+          <img id="editSecaoPreview" src="" alt="" style="display:none; width:100%; height:120px; object-fit:cover; border-radius:6px; margin-top:6px;">
+        </div>
+        <div class="admin-form-group">
+          <label>Nome da Seção</label>
+          <input id="editSecaoNome" type="text">
+        </div>
+        <button class="admin-primary-btn" onclick="salvarEdicaoSecao()">Salvar Alterações</button>
+      </div>
+
+      <!-- Aba Remover -->
       <div id="tabRemoveContent" style="display:none;">
-        <div style="font-size:15px; font-weight:600; color:#111; margin-bottom:12px;">Remover Produto</div>
-        <div id="listaRemoverContainer"></div>
+        <div style="font-size:15px; font-weight:600; color:#111; margin-bottom:12px;">Remover Itens</div>
+        <div class="sub-admin-tabs">
+          <button class="sub-admin-tab" id="subRemProdBtn" onclick="mudarSubRem('produtos')" style="background:#111;color:#fff;">Produtos</button>
+          <button class="sub-admin-tab" id="subRemSecBtn" onclick="mudarSubRem('secoes')">Seções</button>
+        </div>
+        <div id="listaRemoverProdutosContainer"></div>
+        <div id="listaRemoverSecoesContainer" style="display:none;"></div>
       </div>
 
       <div id="adminMsg" style="margin-top: 12px; font-size: 13px; font-weight: 500; color: #008800;"></div>
@@ -204,9 +260,15 @@ let storeData = {
   isAuthed: false,
   adminTab: 'add',
   subEditMode: 'produtos',
+  subRemMode: 'produtos',
   sections: [],
   products: []
 };
+
+let editingProdId = null;
+let tempEditFotoBase64 = '';
+let editingSecId = null;
+let tempEditSecFotoBase64 = '';
 
 async function carregarDadosDoSupabase() {
   try {
@@ -263,7 +325,7 @@ function renderCatalog() {
     : storeData.sections.filter(s => s.id === storeData.activeTab);
 
   if (secsToDisplay.length === 0) {
-    container.innerHTML = '<p style="text-align:center; color:#777; margin-top:30px;">Ainda não existem seções ou produtos registados. Faça duplo clique em "TD Mundo 3D" no topo para abrir o painel admin!</p>';
+    container.innerHTML = '<p style="text-align:center; color:#777; margin-top:30px;">Ainda não existem seções ou produtos registados. Dê duplo clique em "TD Mundo 3D" no topo para abrir o painel admin!</p>';
     return;
   }
 
@@ -339,9 +401,12 @@ function mudarTabAdmin(tab) {
   document.getElementById('tabAddContent').style.display = (tab === 'add') ? 'block' : 'none';
   document.getElementById('tabCreateContent').style.display = (tab === 'create') ? 'block' : 'none';
   document.getElementById('tabEditContent').style.display = (tab === 'edit') ? 'block' : 'none';
+  document.getElementById('tabEditFormContent').style.display = 'none';
+  document.getElementById('tabEditSecaoFormContent').style.display = 'none';
   document.getElementById('tabRemoveContent').style.display = (tab === 'remove') ? 'block' : 'none';
 
   if(tab === 'edit') mudarSubEdit('produtos');
+  if(tab === 'remove') mudarSubRem('produtos');
   document.getElementById('adminMsg').innerText = '';
   renderAdminLists();
 }
@@ -355,21 +420,63 @@ function mudarSubEdit(sub) {
 
   document.getElementById('listaEditarContainer').style.display = (sub === 'produtos') ? 'block' : 'none';
   document.getElementById('listaEditarSecoesContainer').style.display = (sub === 'secoes') ? 'block' : 'none';
+  document.getElementById('tabEditFormContent').style.display = 'none';
+  document.getElementById('tabEditSecaoFormContent').style.display = 'none';
+}
+
+function mudarSubRem(sub) {
+  storeData.subRemMode = sub;
+  document.getElementById('subRemProdBtn').style.background = (sub === 'produtos') ? '#111' : '#f5f5f5';
+  document.getElementById('subRemProdBtn').style.color = (sub === 'produtos') ? '#fff' : '#444';
+  document.getElementById('subRemSecBtn').style.background = (sub === 'secoes') ? '#111' : '#f5f5f5';
+  document.getElementById('subRemSecBtn').style.color = (sub === 'secoes') ? '#fff' : '#444';
+
+  document.getElementById('listaRemoverProdutosContainer').style.display = (sub === 'produtos') ? 'block' : 'none';
+  document.getElementById('listaRemoverSecoesContainer').style.display = (sub === 'secoes') ? 'block' : 'none';
 }
 
 function renderAdminSelects() {
-  const select = document.getElementById('prodSecaoSelect');
-  if(!select) return;
-  let html = '';
-  storeData.sections.forEach(s => {
-    html += `<option value="${s.id}">${s.name}</option>`;
+  ['prodSecaoSelect', 'editProdSecaoSelect'].forEach(id => {
+    const select = document.getElementById(id);
+    if(!select) return;
+    let html = '';
+    storeData.sections.forEach(s => {
+      html += `<option value="${s.id}">${s.name}</option>`;
+    });
+    select.innerHTML = html;
   });
-  select.innerHTML = html;
 }
 
 function renderAdminLists() {
+  // Lista de produtos para editar (Botão Azul "Editar")
   const editContainer = document.getElementById('listaEditarContainer');
   if(editContainer) {
+    let html = '';
+    storeData.products.forEach(p => {
+      html += `<div class="item-row">
+        <span>${p.name}</span>
+        <button class="btn-edit" onclick="carregarParaEditar('${p.id}')">Editar</button>
+      </div>`;
+    });
+    editContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:#777;">Nenhum produto cadastrado.</p>';
+  }
+
+  // Lista de seções para editar (Botão Azul "Editar")
+  const editSecaoContainer = document.getElementById('listaEditarSecoesContainer');
+  if(editSecaoContainer) {
+    let html = '';
+    storeData.sections.forEach(s => {
+      html += `<div class="item-row">
+        <span>${s.name}</span>
+        <button class="btn-edit" onclick="carregarSecaoParaEditar('${s.id}')">Editar</button>
+      </div>`;
+    });
+    editSecaoContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:#777;">Nenhuma seção cadastrada.</p>';
+  }
+
+  // Lista de produtos para remover (Botão Vermelho "Apagar")
+  const removeProdContainer = document.getElementById('listaRemoverProdutosContainer');
+  if(removeProdContainer) {
     let html = '';
     storeData.products.forEach(p => {
       html += `<div class="item-row">
@@ -377,10 +484,24 @@ function renderAdminLists() {
         <button class="btn-del" onclick="removerProduto('${p.id}')">Apagar</button>
       </div>`;
     });
-    editContainer.innerHTML = html;
+    removeProdContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:#777;">Nenhum produto para remover.</p>';
+  }
+
+  // Lista de seções para remover (Botão Vermelho "Apagar")
+  const removeSecContainer = document.getElementById('listaRemoverSecoesContainer');
+  if(removeSecContainer) {
+    let html = '';
+    storeData.sections.forEach(s => {
+      html += `<div class="item-row">
+        <span>${s.name}</span>
+        <button class="btn-del" onclick="removerSecao('${s.id}')">Apagar</button>
+      </div>`;
+    });
+    removeSecContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:#777;">Nenhuma seção para remover.</p>';
   }
 }
 
+// Previews de imagens e uploads
 let tempFotoBase64 = '';
 document.getElementById('prodFotoInput').addEventListener('change', function(e) {
   const file = e.target.files[0];
@@ -411,6 +532,35 @@ document.getElementById('secaoFotoInput').addEventListener('change', function(e)
   }
 });
 
+document.getElementById('editProdFotoInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      tempEditFotoBase64 = evt.target.result;
+      const prev = document.getElementById('editProdPreview');
+      prev.src = tempEditFotoBase64;
+      prev.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+  }
+});
+
+document.getElementById('editSecaoFotoInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      tempEditSecFotoBase64 = evt.target.result;
+      const prev = document.getElementById('editSecaoPreview');
+      prev.src = tempEditSecFotoBase64;
+      prev.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+  }
+});
+
+// Funções de Ações do Admin
 async function criarSecao() {
   const nome = document.getElementById('novaSecaoNome').value.trim();
   if(!nome) {
@@ -467,11 +617,122 @@ async function salvarNovoProduto() {
   await carregarDadosDoSupabase();
 }
 
+function carregarParaEditar(id) {
+  const p = storeData.products.find(item => item.id == id);
+  if(!p) return;
+
+  editingProdId = p.id;
+  document.getElementById('editProdId').value = p.id;
+  document.getElementById('editProdNome').value = p.name;
+  document.getElementById('editProdValor').value = p.price;
+  document.getElementById('editProdSecaoSelect').value = p.section;
+
+  tempEditFotoBase64 = p.photo || '';
+  const prev = document.getElementById('editProdPreview');
+  if(tempEditFotoBase64) {
+    prev.src = tempEditFotoBase64;
+    prev.style.display = 'block';
+  } else {
+    prev.style.display = 'none';
+  }
+
+  document.getElementById('listaEditarContainer').style.display = 'none';
+  document.getElementById('listaEditarSecoesContainer').style.display = 'none';
+  document.getElementById('tabEditFormContent').style.display = 'block';
+  document.getElementById('tabEditSecaoFormContent').style.display = 'none';
+}
+
+async function salvarEdicaoProduto() {
+  const nome = document.getElementById('editProdNome').value.trim();
+  const valor = parseFloat(document.getElementById('editProdValor').value);
+  const secao = document.getElementById('editProdSecaoSelect').value;
+
+  if(!nome || isNaN(valor)) {
+    alert('Preencha os campos corretamente.');
+    return;
+  }
+
+  const atualizacao = {
+    name: nome,
+    price: valor,
+    section: secao,
+    photo: tempEditFotoBase64
+  };
+
+  const { error } = await supabaseClient.from('products').update(atualizacao).eq('id', editingProdId);
+  if(error) {
+    alert('Erro ao atualizar produto: ' + error.message);
+    return;
+  }
+
+  document.getElementById('adminMsg').innerText = 'Produto atualizado com sucesso!';
+  mudarTabAdmin('edit');
+  mudarSubEdit('produtos');
+  await carregarDadosDoSupabase();
+}
+
+function carregarSecaoParaEditar(id) {
+  const s = storeData.sections.find(item => item.id == id);
+  if(!s) return;
+
+  editingSecId = s.id;
+  document.getElementById('editSecaoId').value = s.id;
+  document.getElementById('editSecaoNome').value = s.name;
+
+  tempEditSecFotoBase64 = s.img || '';
+  const prev = document.getElementById('editSecaoPreview');
+  if(tempEditSecFotoBase64) {
+    prev.src = tempEditSecFotoBase64;
+    prev.style.display = 'block';
+  } else {
+    prev.style.display = 'none';
+  }
+
+  document.getElementById('listaEditarContainer').style.display = 'none';
+  document.getElementById('listaEditarSecoesContainer').style.display = 'none';
+  document.getElementById('tabEditFormContent').style.display = 'none';
+  document.getElementById('tabEditSecaoFormContent').style.display = 'block';
+}
+
+async function salvarEdicaoSecao() {
+  const nome = document.getElementById('editSecaoNome').value.trim();
+  if(!nome) {
+    alert('Digite o nome da seção.');
+    return;
+  }
+
+  const atualizacao = {
+    name: nome,
+    img: tempEditSecFotoBase64
+  };
+
+  const { error } = await supabaseClient.from('sections').update(atualizacao).eq('id', editingSecId);
+  if(error) {
+    alert('Erro ao atualizar seção: ' + error.message);
+    return;
+  }
+
+  document.getElementById('adminMsg').innerText = 'Seção atualizada com sucesso!';
+  mudarTabAdmin('edit');
+  mudarSubEdit('secoes');
+  await carregarDadosDoSupabase();
+}
+
 async function removerProduto(id) {
   if(!confirm('Deseja realmente apagar este produto?')) return;
   const { error } = await supabaseClient.from('products').delete().eq('id', id);
   if(error) {
-    alert('Erro ao apagar: ' + error.message);
+    alert('Erro ao apagar produto: ' + error.message);
+    return;
+  }
+  await carregarDadosDoSupabase();
+}
+
+async function removerSecao(id) {
+  if(!confirm('Deseja realmente apagar esta seção?')) return;
+  const { error } = await supabaseClient.from('sections').delete().eq('id', id);
+  if(error) {
+    alert('Erro ao apagar seção: ' + error.message);
     return;
   }
   await carregarDadosDoSupabase();

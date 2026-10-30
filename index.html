@@ -26,13 +26,12 @@
   
   .app-container { min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow-x: hidden; }
 
-  /* Header Reestruturado (Sem Catálogo Oficial, com Logo e Título Elevado) */
+  /* Header com a Logo Embutida */
   header { padding: 32px 20px 24px; text-align: center; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface); position: relative; }
   header::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
   
-  .store-logo-container { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; border: 2px solid var(--accent); background: var(--bg-card); box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25); display: flex; align-items: center; justify-content: center; }
+  .store-logo-container { width: 84px; height: 84px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; border: 2px solid var(--accent); background: var(--bg-card); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3); display: flex; align-items: center; justify-content: center; }
   .store-logo-container img { width: 100%; height: 100%; object-fit: cover; }
-  .store-logo-placeholder { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
 
   header h1 { font-size: 26px; color: var(--text-main); font-weight: 800; letter-spacing: -0.5px; display: inline-block; cursor: pointer; user-select: none; }
   header p { margin-top: 6px; font-size: 13px; color: var(--text-muted); max-width: 480px; margin-left: auto; margin-right: auto; }
@@ -92,7 +91,7 @@
   .card-action-btn { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 9px 10px; background: var(--accent); color: #ffffff; font-size: 12px; font-weight: 600; border-radius: 8px; transition: background 0.2s; }
   .card-action-btn:hover { background: var(--accent-hover); }
 
-  /* Modal de Detalhes do Produto */
+  /* Modal de Detalhes / Galeria */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
   .modal-content { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; width: min(500px, 100%); max-height: 90vh; overflow-y: auto; padding: 24px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
   .modal-close { position: absolute; top: 16px; right: 16px; background: var(--bg-surface); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; }
@@ -146,8 +145,8 @@
 <div class="app-container">
 
   <header>
-    <div class="store-logo-container" id="storeLogoBox">
-      <span class="store-logo-placeholder">LOGO</span>
+    <div class="store-logo-container">
+      <img src="" alt="TD Mundo 3D Logo">
     </div>
     <h1 id="secretAdminTrigger" title="Painel Admin">TD Mundo 3D</h1>
     <p>Ideias que ganham forma através de tecnologia e precisão. Escolha seus modelos e monte o seu pedido.</p>
@@ -361,8 +360,7 @@ let storeData = {
   subRemMode: 'produtos',
   sections: [],
   products: [],
-  cart: [],
-  storeLogo: ''
+  cart: []
 };
 
 let produtoSelecionadoAtual = null;
@@ -379,10 +377,6 @@ async function carregarDadosDoSupabase() {
     const { data: secoesData } = await supabaseClient.from('sections').select('*');
     if (produtosData) storeData.products = produtosData;
     if (secoesData) storeData.sections = secoesData;
-    
-    // Tentar carregar logo se guardada no localStorage para persistência fácil
-    const savedLogo = localStorage.getItem('td_store_logo');
-    if (savedLogo) storeData.storeLogo = savedLogo;
   } catch (err) {
     console.log("Erro ao carregar dados", err);
   }
@@ -394,25 +388,11 @@ function fmtMoeda(val) {
 }
 
 function render() {
-  renderLogo();
   renderTabs();
   renderCatalog();
   renderAdminSelects();
   renderAdminLists();
   atualizarContadorCarrinho();
-}
-
-function renderLogo() {
-  const logoBox = document.getElementById('storeLogoBox');
-  if (storeData.storeLogo) {
-    logoBox.innerHTML = `<img src="${storeData.storeLogo}" alt="Logo da Loja">`;
-  } else {
-    logoBox.innerHTML = `<span class="store-logo-placeholder" onclick="adicionarLogoPrompt()" style="cursor:pointer;" title="Clique para adicionar logo">LOGO</span>`;
-  }
-}
-
-function adicionarLogoPrompt() {
-  const url = prompt("Cole o link ou selecione a imagem da logo nas configurações do painel admin (ou dÊ duplo clique no título para abrir o admin e configurar).");
 }
 
 function renderTabs() {
@@ -891,7 +871,7 @@ async function removerProduto(id) {
   if (!confirm('Apagar este produto?')) return;
   const { error } = await supabaseClient.from('products').delete().eq('id', id);
   if (error) { alert('Erro: ' + error.message); return; }
-  await carregarDadosDocSupabase();
+  await carregarDadosDoSupabase();
 }
 
 async function removerSecao(id) {

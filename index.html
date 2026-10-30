@@ -26,104 +26,113 @@
   
   .app-container { min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow-x: hidden; }
 
-  /* Header Sofisticado (Hero) */
+  /* Header */
   header { padding: 48px 20px 32px; text-align: center; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface); position: relative; }
   header::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
   header .tagline { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 8px; font-weight: 700; }
-  header h1 { font-size: 28px; color: var(--text-main); font-weight: 800; letter-spacing: -0.5px; display: inline-block; cursor: pointer; user-select: none; transition: opacity 0.2s; }
-  header h1:hover { opacity: 0.9; }
+  header h1 { font-size: 28px; color: var(--text-main); font-weight: 800; letter-spacing: -0.5px; display: inline-block; cursor: pointer; user-select: none; }
   header p { margin-top: 8px; font-size: 14px; color: var(--text-muted); max-width: 480px; margin-left: auto; margin-right: auto; }
 
-  /* Main Content */
+  /* Botão Flutuante do Carrinho */
+  .cart-floating-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 40;
+    transition: transform 0.2s;
+  }
+  .cart-floating-btn:hover { transform: scale(1.05); background: var(--accent-hover); }
+
+  /* Main */
   main { max-width: 1150px; width: 100%; margin: 0 auto; padding: 32px 20px 80px; flex: 1; }
 
-  /* Carrossel de Categorias Refinado */
-  .tabs-container { 
-    display: flex; 
-    gap: 16px; 
-    justify-content: flex-start; 
-    overflow-x: auto; 
-    padding-bottom: 16px; 
-    margin-bottom: 40px; 
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
+  /* Categorias */
+  .tabs-container { display: flex; gap: 16px; justify-content: flex-start; overflow-x: auto; padding-bottom: 16px; margin-bottom: 40px; scroll-snap-type: x mandatory; }
   .tabs-container::-webkit-scrollbar { height: 4px; }
   .tabs-container::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 4px; }
 
-  .category-bubble-wrapper { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 8px; 
-    cursor: pointer; 
-    flex: 0 0 auto; 
-    scroll-snap-align: start;
-    transition: transform 0.2s ease;
-  }
+  .category-bubble-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; flex: 0 0 auto; scroll-snap-align: start; transition: transform 0.2s; }
   .category-bubble-wrapper:hover { transform: translateY(-3px); }
-  
-  .category-bubble { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 2px solid var(--border-subtle); transition: all 0.25s ease; background: var(--bg-card); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .category-bubble { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 2px solid var(--border-subtle); background: var(--bg-card); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   .category-bubble img { width: 100%; height: 100%; object-fit: cover; }
   .category-bubble-wrapper.active .category-bubble { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); }
-  .category-name { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; transition: color 0.2s; }
+  .category-name { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; }
   .category-bubble-wrapper.active .category-name { color: var(--text-main); }
 
-  /* Seções */
+  /* Seções e Produtos */
   .section-box { margin-bottom: 48px; }
   .section-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle); text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; gap: 10px; }
   .section-title::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
 
-  /* Grelha de Produtos do Catálogo (2 Colunas) */
   .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .product-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .product-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); cursor: pointer; }
   .product-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
 
   .product-img-box { height: 160px; background: #101014; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border-bottom: 1px solid var(--border-subtle); }
-  .product-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-  .product-card:hover .product-img-box img { transform: scale(1.04); }
+  .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
   .product-placeholder { font-size: 12px; color: var(--text-muted); font-weight: 600; letter-spacing: 2px; }
 
   .product-info { padding: 14px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
   .product-name { font-size: 13px; font-weight: 600; color: var(--text-main); line-height: 1.4; }
   .product-price { font-size: 15px; font-weight: 700; color: var(--text-main); }
+  
+  .card-action-btn { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 9px 10px; background: var(--accent); color: #ffffff; font-size: 12px; font-weight: 600; border-radius: 8px; transition: background 0.2s; }
+  .card-action-btn:hover { background: var(--accent-hover); }
 
-  /* Botão WhatsApp Sofisticado */
-  .wa-btn { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 9px 10px; background: var(--whatsapp); color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 600; border-radius: 8px; transition: background 0.2s, transform 0.1s; }
-  .wa-btn:hover { background: var(--whatsapp-hover); }
+  /* Modal de Detalhes do Produto (Galeria) */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
+  .modal-content { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; width: min(500px, 100%); max-height: 90vh; overflow-y: auto; padding: 24px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: var(--bg-surface); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; }
+  
+  .gallery-main-img { width: 100%; height: 260px; object-fit: cover; border-radius: 10px; background: #101014; border: 1px solid var(--border-subtle); margin-bottom: 12px; }
+  .gallery-thumbs { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 16px; padding-bottom: 4px; }
+  .gallery-thumb { width: 60px; height: 60px; border-radius: 6px; overflow: hidden; border: 2px solid var(--border-subtle); cursor: pointer; flex-shrink: 0; background: #101014; }
+  .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-thumb.active { border-color: var(--accent); }
 
-  /* Painel Administrativo Lateral */
+  /* Drawer do Carrinho e Painel Admin */
   aside { position: fixed; left: 0; top: 0; bottom: 0; z-index: 50; width: min(420px, 92vw); background: #121217; border-right: 1px solid var(--border-subtle); box-shadow: 10px 0 40px rgba(0,0,0,0.6); overflow-y: auto; padding: 28px; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateX(-105%); }
-  .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
-  .admin-header h3 { font-size: 16px; font-weight: 700; color: var(--text-main); letter-spacing: 0.5px; }
-  .close-admin { font-size: 16px; color: var(--text-muted); background: var(--bg-surface); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-  .close-admin:hover { background: var(--border-subtle); color: var(--text-main); }
+  aside.right-drawer { left: auto; right: 0; border-right: none; border-left: 1px solid var(--border-subtle); transform: translateX(105%); }
+  aside.open { transform: translateX(0) !important; }
+
+  .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
+  .drawer-header h3 { font-size: 16px; font-weight: 700; color: var(--text-main); }
+  .close-drawer { font-size: 16px; color: var(--text-muted); background: var(--bg-surface); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
   .admin-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-  .admin-form-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-  .admin-form-group input, .admin-form-group select { padding: 11px 14px; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--bg-surface); color: var(--text-main); font-size: 14px; transition: border-color 0.2s; }
-  .admin-form-group input:focus, .admin-form-group select:focus { border-color: var(--accent); outline: none; }
+  .admin-form-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+  .admin-form-group input, .admin-form-group select { padding: 11px 14px; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--bg-surface); color: var(--text-main); font-size: 14px; }
   
-  .admin-primary-btn { padding: 12px; background: var(--accent); color: #ffffff; font-weight: 700; border-radius: 8px; width: 100%; margin-top: 8px; transition: background 0.2s; }
+  .admin-primary-btn { padding: 12px; background: var(--accent); color: #ffffff; font-weight: 700; border-radius: 8px; width: 100%; margin-top: 8px; }
   .admin-primary-btn:hover { background: var(--accent-hover); }
 
   .admin-nav-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 24px; background: var(--bg-surface); padding: 4px; border-radius: 8px; border: 1px solid var(--border-subtle); }
-  .admin-nav-tab { padding: 8px 4px; font-size: 11px; font-weight: 700; border-radius: 6px; text-align: center; color: var(--text-muted); transition: all 0.2s; }
-  .admin-nav-tab:hover { color: var(--text-main); }
-
+  .admin-nav-tab { padding: 8px 4px; font-size: 11px; font-weight: 700; border-radius: 6px; text-align: center; color: var(--text-muted); }
+  
   .sub-admin-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 16px; background: var(--bg-surface); padding: 4px; border-radius: 8px; border: 1px solid var(--border-subtle); }
-  .sub-admin-tab { padding: 8px; font-size: 12px; font-weight: 600; border-radius: 6px; text-align: center; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+  .sub-admin-tab { padding: 8px; font-size: 12px; font-weight: 600; border-radius: 6px; text-align: center; color: var(--text-muted); cursor: pointer; }
 
-  /* Lista Admin individual (um a um, testado e funcional) */
   .item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 8px; background: var(--bg-surface); font-size: 13px; }
   .item-row span { font-weight: 500; color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
-  .item-row button { padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 6px; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
-  
-  .btn-edit { background: var(--accent); }
-  .btn-edit:hover { background: var(--accent-hover); }
-  .btn-del { background: #ef4444; }
-  .btn-del:hover { background: #dc2626; }
+  .btn-edit { background: var(--accent); padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 6px; color: #fff; }
+  .btn-del { background: #ef4444; padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 6px; color: #fff; }
 
+  /* Itens no Carrinho */
+  .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); padding: 12px; border-radius: 8px; border: 1px solid var(--border-subtle); margin-bottom: 10px; }
+  .cart-item-info h4 { font-size: 13px; font-weight: 600; color: var(--text-main); }
+  .cart-item-info p { font-size: 12px; color: var(--text-muted); }
+  .cart-actions { display: flex; align-items: center; gap: 8px; }
+  .cart-actions button { background: var(--border-subtle); color: #fff; width: 24px; height: 24px; border-radius: 4px; font-weight: bold; }
+  
   footer { text-align: center; padding: 32px 20px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-subtle); background: var(--bg-surface); }
 </style>
 
@@ -136,8 +145,14 @@
   <header>
     <div class="tagline">Catálogo Oficial</div>
     <h1 id="secretAdminTrigger" title="Painel Admin">TD Mundo 3D</h1>
-    <p>Ideias que ganham forma através de tecnologia e precisão. Escolha seu modelo e feche o pedido direto pelo WhatsApp.</p>
+    <p>Ideias que ganham forma através de tecnologia e precisão. Escolha seus modelos e monte o seu pedido.</p>
   </header>
+
+  <!-- Botão Flutuante do Carrinho -->
+  <button class="cart-floating-btn" onclick="toggleCart()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+    Carrinho (<span id="cartCount">0</span>)
+  </button>
 
   <main>
     <div class="tabs-container" id="tabList"></div>
@@ -148,13 +163,43 @@
     <span>TD Mundo 3D © Todos os direitos reservados</span>
   </footer>
 
+  <!-- Modal Detalhes / Galeria de Fotos -->
+  <div class="modal-overlay" id="productModal" onclick="fecharModalFora(event)">
+    <div class="modal-content">
+      <div class="modal-close" onclick="fecharModal()">✕</div>
+      <img id="modalMainImg" class="gallery-main-img" src="" alt="Produto">
+      <div class="gallery-thumbs" id="modalThumbs"></div>
+      <h2 id="modalTitle" style="font-size: 18px; font-weight: 700; margin-bottom: 6px;"></h2>
+      <p id="modalPrice" style="font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 16px;"></p>
+      <button class="admin-primary-btn" onclick="adicionarAoCarrinhoDoModal()" style="background: var(--whatsapp); font-size: 14px;">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+
+  <!-- Drawer do Carrinho -->
+  <aside id="cartDrawer" class="right-drawer">
+    <div class="drawer-header">
+      <h3>Seu Carrinho de Compras</h3>
+      <div class="close-drawer" onclick="toggleCart()">✕</div>
+    </div>
+    <div id="cartItemsContainer"></div>
+    <div style="margin-top: 20px; border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+      <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 16px; margin-bottom: 16px;">
+        <span>Total:</span>
+        <span id="cartTotal">R$ 0,00</span>
+      </div>
+      <button class="admin-primary-btn" onclick="finalizarPedidoWhatsApp()" style="background: var(--whatsapp); display: flex; align-items: center; justify-content: center; gap: 8px;">
+        Finalizar Pedido no WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- Painel Administrativo -->
   <aside id="adminPanel">
-    <div class="admin-header">
+    <div class="drawer-header">
       <h3>Painel Administrativo</h3>
-      <button class="close-admin" onclick="toggleAdmin()">✕</button>
+      <div class="close-drawer" onclick="toggleAdmin()">✕</div>
     </div>
 
-    <!-- Login -->
     <div id="loginSection" class="admin-form-group">
       <label>Senha de Acesso</label>
       <input id="pinInput" type="password" placeholder="••••">
@@ -163,7 +208,6 @@
       <div style="color: var(--text-muted); font-size: 12px; margin-top: 8px;">Senha padrão: <b>1234</b></div>
     </div>
 
-    <!-- Dashboard -->
     <div id="dashboardSection" style="display:none;">
       <div class="admin-nav-tabs">
         <button class="admin-nav-tab" id="navAdd" onclick="mudarTabAdmin('add')">Adicionar</button>
@@ -172,13 +216,13 @@
         <button class="admin-nav-tab" id="navRemove" onclick="mudarTabAdmin('remove')">Remover</button>
       </div>
 
-      <!-- Aba Adicionar Produto -->
+      <!-- Adicionar Produto com Múltiplas Fotos -->
       <div id="tabAddContent" style="display:none;">
-        <div style="font-size:14px; font-weight:700; color:var(--text-main); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px;">Novo Produto</div>
+        <div style="font-size:14px; font-weight:700; color:var(--text-main); margin-bottom:14px; text-transform:uppercase;">Novo Produto</div>
         <div class="admin-form-group">
-          <label>Foto do Produto</label>
-          <input id="prodFotoInput" type="file" accept="image/*">
-          <img id="prodPreview" src="" alt="" style="display:none; width:100%; height:130px; object-fit:cover; border-radius:8px; margin-top:8px; border:1px solid var(--border-subtle);">
+          <label>Fotos do Produto (Podes selecionar várias)</label>
+          <input id="prodFotosInput" type="file" accept="image/*" multiple onchange="preverMultiplasFotos(this, 'prodPreviewContainer')">
+          <div id="prodPreviewContainer" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;"></div>
         </div>
         <div class="admin-form-group">
           <label>Nome do Produto</label>
@@ -195,13 +239,13 @@
         <button class="admin-primary-btn" onclick="salvarNovoProduto()">Salvar Produto</button>
       </div>
 
-      <!-- Aba Criar Seção -->
+      <!-- Criar Seção -->
       <div id="tabCreateContent" style="display:none;">
-        <div style="font-size:14px; font-weight:700; color:var(--text-main); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px;">Nova Seção / Categoria</div>
+        <div style="font-size:14px; font-weight:700; color:var(--text-main); margin-bottom:14px; text-transform:uppercase;">Nova Seção / Categoria</div>
         <div class="admin-form-group">
           <label>Foto da Seção (Ícone)</label>
           <input id="secaoFotoInput" type="file" accept="image/*">
-          <img id="secaoPreview" src="" alt="" style="display:none; width:100%; height:130px; object-fit:cover; border-radius:8px; margin-top:8px; border:1px solid var(--border-subtle);">
+          <img id="secaoPreview" src="" alt="" style="display:none; width:100%; height:120px; object-fit:cover; border-radius:8px; margin-top:8px;">
         </div>
         <div class="admin-form-group">
           <label>Nome da Seção</label>
@@ -210,14 +254,12 @@
         <button class="admin-primary-btn" onclick="criarSecao()">Criar Seção</button>
       </div>
 
-      <!-- Aba Editar (Com Filtro de Seção para Produtos) -->
+      <!-- Editar -->
       <div id="tabEditContent" style="display:none;">
         <div class="sub-admin-tabs">
           <button class="sub-admin-tab" id="subEditProdBtn" onclick="mudarSubEdit('produtos')">Produtos</button>
           <button class="sub-admin-tab" id="subEditSecBtn" onclick="mudarSubEdit('secoes')">Seções</button>
         </div>
-        
-        <!-- Contâiner para Produtos com Filtro de Seção -->
         <div id="wrapperEditProdutos">
           <div class="admin-form-group" style="margin-bottom: 12px;">
             <label>Filtrar por Seção:</label>
@@ -225,7 +267,6 @@
           </div>
           <div id="listaEditarContainer"></div>
         </div>
-
         <div id="listaEditarSecoesContainer" style="display:none;"></div>
       </div>
 
@@ -237,9 +278,9 @@
         </div>
         <input type="hidden" id="editProdId">
         <div class="admin-form-group">
-          <label>Alterar Foto</label>
-          <input id="editProdFotoInput" type="file" accept="image/*">
-          <img id="editProdPreview" src="" alt="" style="display:none; width:100%; height:130px; object-fit:cover; border-radius:8px; margin-top:8px; border:1px solid var(--border-subtle);">
+          <label>Alterar Fotos (Seleciona para substituir)</label>
+          <input id="editProdFotosInput" type="file" accept="image/*" multiple onchange="preverMultiplasFotos(this, 'editProdPreviewContainer')">
+          <div id="editProdPreviewContainer" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;"></div>
         </div>
         <div class="admin-form-group">
           <label>Nome do Produto</label>
@@ -266,7 +307,7 @@
         <div class="admin-form-group">
           <label>Alterar Foto da Seção</label>
           <input id="editSecaoFotoInput" type="file" accept="image/*">
-          <img id="editSecaoPreview" src="" alt="" style="display:none; width:100%; height:130px; object-fit:cover; border-radius:8px; margin-top:8px; border:1px solid var(--border-subtle);">
+          <img id="editSecaoPreview" src="" alt="" style="display:none; width:100%; height:120px; object-fit:cover; border-radius:8px; margin-top:8px;">
         </div>
         <div class="admin-form-group">
           <label>Nome da Seção</label>
@@ -275,15 +316,13 @@
         <button class="admin-primary-btn" onclick="salvarEdicaoSecao()">Atualizar Seção</button>
       </div>
 
-      <!-- Aba Remover (Com Filtro de Seção para Produtos) -->
+      <!-- Remover -->
       <div id="tabRemoveContent" style="display:none;">
         <div style="font-size:14px; font-weight:700; color:var(--text-main); margin-bottom:14px; text-transform:uppercase;">Remover Itens</div>
         <div class="sub-admin-tabs">
           <button class="sub-admin-tab" id="subRemProdBtn" onclick="mudarSubRem('produtos')">Produtos</button>
           <button class="sub-admin-tab" id="subRemSecBtn" onclick="mudarSubRem('secoes')">Seções</button>
         </div>
-
-        <!-- Contâiner para Remover Produtos com Filtro de Seção -->
         <div id="wrapperRemoveProdutos">
           <div class="admin-form-group" style="margin-bottom: 12px;">
             <label>Filtrar por Seção:</label>
@@ -291,7 +330,6 @@
           </div>
           <div id="listaRemoverProdutosContainer"></div>
         </div>
-
         <div id="listaRemoverSecoesContainer" style="display:none;"></div>
       </div>
 
@@ -311,28 +349,32 @@ const WHATSAPP_NUMERO = "5511999999999";
 let storeData = {
   activeTab: 'all',
   isAdminOpen: false,
+  isCartOpen: false,
   isAuthed: false,
   adminTab: 'add',
   subEditMode: 'produtos',
   subRemMode: 'produtos',
   sections: [],
-  products: []
+  products: [],
+  cart: []
 };
 
-let editingProdId = null;
-let tempEditFotoBase64 = '';
-let editingSecId = null;
+let produtoSelecionadoAtual = null;
+let fotosTempBase64 = [];
+let editFotosTempBase64 = [];
+let tempSecaoFotoBase64 = '';
 let tempEditSecFotoBase64 = '';
+let editingProdId = null;
+let editingSecId = null;
 
 async function carregarDadosDoSupabase() {
   try {
-    const { data: produtosData, error: prodError } = await supabaseClient.from('products').select('*');
-    const { data: secoesData, error: secError } = await supabaseClient.from('sections').select('*');
-
-    if (!prodError && produtosData) storeData.products = produtosData;
-    if (!secError && secoesData) storeData.sections = secoesData;
+    const { data: produtosData } = await supabaseClient.from('products').select('*');
+    const { data: secoesData } = await supabaseClient.from('sections').select('*');
+    if (produtosData) storeData.products = produtosData;
+    if (secoesData) storeData.sections = secoesData;
   } catch (err) {
-    console.log("Erro ao carregar dados.", err);
+    console.log("Erro ao carregar dados", err);
   }
   render();
 }
@@ -346,6 +388,7 @@ function render() {
   renderCatalog();
   renderAdminSelects();
   renderAdminLists();
+  atualizarContadorCarrinho();
 }
 
 function renderTabs() {
@@ -356,11 +399,9 @@ function renderTabs() {
       <span class="category-name">Todos</span>
     </div>
   `;
-
   storeData.sections.forEach(sec => {
-    const isSelected = storeData.activeTab === sec.id;
     html += `
-      <div class="category-bubble-wrapper ${isSelected ? 'active' : ''}" onclick="mudarAba('${sec.id}')">
+      <div class="category-bubble-wrapper ${storeData.activeTab === sec.id ? 'active' : ''}" onclick="mudarAba('${sec.id}')">
         <div class="category-bubble">
           <img src="${sec.img || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80'}" alt="${sec.name}">
         </div>
@@ -374,40 +415,35 @@ function renderTabs() {
 function renderCatalog() {
   const container = document.getElementById('catalogContainer');
   let html = '';
-  const secsToDisplay = storeData.activeTab === 'all' 
-    ? storeData.sections 
-    : storeData.sections.filter(s => s.id === storeData.activeTab);
+  const secsToDisplay = storeData.activeTab === 'all' ? storeData.sections : storeData.sections.filter(s => s.id === storeData.activeTab);
 
   if (secsToDisplay.length === 0) {
-    container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:40px;">Ainda não existem seções ou produtos registados. Dê duplo clique em "TD Mundo 3D" no topo para abrir o painel admin.</p>';
+    container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:40px;">Ainda não existem seções ou produtos registados.</p>';
     return;
   }
 
   secsToDisplay.forEach(sec => {
     const produtosDaSecao = storeData.products.filter(p => p.section === sec.id);
-
     html += `<div class="section-box"><h2 class="section-title">${sec.name}</h2>`;
 
     if (produtosDaSecao.length === 0) {
-      html += `<p style="color:var(--text-muted); font-size:13px;">Nenhum produto nesta seção no momento.</p>`;
+      html += `<p style="color:var(--text-muted); font-size:13px;">Nenhum produto nesta seção.</p>`;
     } else {
       html += `<div class="products-grid">`;
       produtosDaSecao.forEach(p => {
-        const textoWa = encodeURIComponent(`Olá! Gostaria de encomendar / saber mais sobre o modelo: ${p.name} (${fmtMoeda(p.price)})`);
-        const linkWa = `https://wa.me/${WHATSAPP_NUMERO}?text=${textoWa}`;
-        
+        let fotoCapa = '';
+        if (Array.isArray(p.photos) && p.photos.length > 0) fotoCapa = p.photos[0];
+        else if (p.photo) fotoCapa = p.photo; // Retrocompatibilidade
+
         html += `
-          <div class="product-card">
+          <div class="product-card" onclick="abrirModalProduto('${p.id}')">
             <div class="product-img-box">
-              ${p.photo ? `<img src="${p.photo}" alt="${p.name}">` : `<span class="product-placeholder">3D MODEL</span>`}
+              ${fotoCapa ? `<img src="${fotoCapa}" alt="${p.name}">` : `<span class="product-placeholder">3D MODEL</span>`}
             </div>
             <div class="product-info">
               <div class="product-name">${p.name}</div>
               <div class="product-price">${fmtMoeda(p.price)}</div>
-              <a href="${linkWa}" target="_blank" class="wa-btn">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                WhatsApp
-              </a>
+              <button class="card-action-btn" onclick="event.stopPropagation(); adicionarAoCarrinhoDireto('${p.id}')">Ver / Comprar</button>
             </div>
           </div>
         `;
@@ -424,19 +460,177 @@ function mudarAba(tabId) {
   render();
 }
 
-function toggleAdmin() {
-  storeData.isAdminOpen = !storeData.isAdminOpen;
-  const panel = document.getElementById('adminPanel');
-  panel.style.transform = storeData.isAdminOpen ? 'translateX(0)' : 'translateX(-105%)';
+/* Sistema de Galeria / Modal */
+function abrirModalProduto(id) {
+  const p = storeData.products.find(item => item.id == id);
+  if (!p) return;
+  produtoSelecionadoAtual = p;
+
+  let fotos = [];
+  if (Array.isArray(p.photos) && p.photos.length > 0) fotos = p.photos;
+  else if (p.photo) fotos = [p.photo];
+  else fotos = ['https://via.placeholder.com/400'];
+
+  document.getElementById('modalMainImg').src = fotos[0];
+  document.getElementById('modalTitle').innerText = p.name;
+  document.getElementById('modalPrice').innerText = fmtMoeda(p.price);
+
+  let thumbsHtml = '';
+  fotos.forEach((f, idx) => {
+    thumbsHtml += `
+      <div class="gallery-thumb ${idx === 0 ? 'active' : ''}" onclick="mudarFotoPrincipal('${f}', this)">
+        <img src="${f}" alt="Thumb">
+      </div>
+    `;
+  });
+  document.getElementById('modalThumbs').innerHTML = thumbsHtml;
+  document.getElementById('productModal').style.display = 'flex';
 }
 
-document.getElementById('secretAdminTrigger').addEventListener('dblclick', function() {
-  toggleAdmin();
-});
+function mudarFotoPrincipal(src, el) {
+  document.getElementById('modalMainImg').src = src;
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function fecharModal() {
+  document.getElementById('productModal').style.display = 'none';
+}
+
+function fecharModalFora(e) {
+  if (e.target.id === 'productModal') fecharModal();
+}
+
+/* Carrinho de Compras */
+function toggleCart() {
+  storeData.isCartOpen = !storeData.isCartOpen;
+  document.getElementById('cartDrawer').classList.toggle('open', storeData.isCartOpen);
+  renderCart();
+}
+
+function adicionarAoCarrinhoDireto(id) {
+  abrirModalProduto(id);
+}
+
+function adicionarAoCarrinhoDoModal() {
+  if (!produtoSelecionadoAtual) return;
+  const existente = storeData.cart.find(item => item.id === produtoSelecionadoAtual.id);
+  if (existente) {
+    existente.qtd += 1;
+  } else {
+    storeData.cart.push({
+      id: produtoSelecionadoAtual.id,
+      name: produtoSelecionadoAtual.name,
+      price: produtoSelecionadoAtual.price,
+      qtd: 1
+    });
+  }
+  fecharModal();
+  toggleCart();
+}
+
+function alterarQtdCarrinho(id, delta) {
+  const item = storeData.cart.find(i => i.id === id);
+  if (!item) return;
+  item.qtd += delta;
+  if (item.qtd <= 0) {
+    storeData.cart = storeData.cart.filter(i => i.id !== id);
+  }
+  renderCart();
+  atualizarContadorCarrinho();
+}
+
+function renderCart() {
+  const container = document.getElementById('cartItemsContainer');
+  if (storeData.cart.length === 0) {
+    container.innerHTML = '<p style="color:var(--text-muted); font-size:13px; text-align:center; margin-top:20px;">O seu carrinho está vazio.</p>';
+    document.getElementById('cartTotal').innerText = 'R$ 0,00';
+    atualizarContadorCarrinho();
+    return;
+  }
+
+  let html = '';
+  let total = 0;
+  storeData.cart.forEach(item => {
+    total += item.price * item.qtd;
+    html += `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <h4>${item.name}</h4>
+          <p>${fmtMoeda(item.price)} un.</p>
+        </div>
+        <div class="cart-actions">
+          <button onclick="alterarQtdCarrinho('${item.id}', -1)">-</button>
+          <span style="font-size:13px; font-weight:600; min-width:16px; text-align:center;">${item.qtd}</span>
+          <button onclick="alterarQtdCarrinho('${item.id}', 1)">+</button>
+        </div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+  document.getElementById('cartTotal').innerText = fmtMoeda(total);
+  atualizarContadorCarrinho();
+}
+
+function atualizarContadorCarrinho() {
+  const totalQtd = storeData.cart.reduce((acc, item) => acc + item.qtd, 0);
+  document.getElementById('cartCount').innerText = totalQtd;
+}
+
+function finalizarPedidoWhatsApp() {
+  if (storeData.cart.length === 0) {
+    alert('O seu carrinho está vazio.');
+    return;
+  }
+  let texto = 'Olá! Gostaria de encomendar os seguintes itens:\n\n';
+  let total = 0;
+  storeData.cart.forEach(item => {
+    let sub = item.price * item.qtd;
+    total += sub;
+    texto += `▪️ ${item.qtd}x ${item.name} (${fmtMoeda(item.price)} un) = ${fmtMoeda(sub)}\n`;
+  });
+  texto += `\n*Total do Pedido: ${fmtMoeda(total)}*`;
+
+  const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(texto)}`;
+  window.open(url, '_blank');
+}
+
+/* Upload de Múltiplas Fotos */
+function preverMultiplasFotos(input, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  let arrDestino = (containerId.includes('edit')) ? editFotosTempBase64 : fotosTempBase64;
+  arrDestino.length = 0;
+
+  if (input.files) {
+    Array.from(input.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        arrDestino.push(e.target.result);
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.width = '60px';
+        img.style.height = '60px';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '6px';
+        img.style.border = '1px solid var(--border-subtle)';
+        container.appendChild(img);
+      }
+      reader.readAsDataURL(file);
+    });
+  }
+}
+
+/* Painel Admin e Gestão */
+function toggleAdmin() {
+  storeData.isAdminOpen = !storeData.isAdminOpen;
+  document.getElementById('adminPanel').classList.toggle('open', storeData.isAdminOpen);
+}
+
+document.getElementById('secretAdminTrigger').addEventListener('dblclick', toggleAdmin);
 
 function fazerLogin() {
-  const pin = document.getElementById('pinInput').value;
-  if(pin === '1234') {
+  if (document.getElementById('pinInput').value === '1234') {
     storeData.isAuthed = true;
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('dashboardSection').style.display = 'block';
@@ -451,7 +645,7 @@ function mudarTabAdmin(tab) {
   storeData.adminTab = tab;
   ['add', 'create', 'edit', 'remove'].forEach(t => {
     const btn = document.getElementById('nav' + t.charAt(0).toUpperCase() + t.slice(1));
-    if(btn) {
+    if (btn) {
       btn.style.background = (t === tab) ? 'var(--bg-card)' : 'transparent';
       btn.style.color = (t === tab) ? 'var(--text-main)' : 'var(--text-muted)';
       btn.style.border = (t === tab) ? '1px solid var(--border-subtle)' : 'none';
@@ -465,33 +659,21 @@ function mudarTabAdmin(tab) {
   document.getElementById('tabEditSecaoFormContent').style.display = 'none';
   document.getElementById('tabRemoveContent').style.display = (tab === 'remove') ? 'block' : 'none';
 
-  if(tab === 'edit') mudarSubEdit('produtos');
-  if(tab === 'remove') mudarSubRem('produtos');
+  if (tab === 'edit') mudarSubEdit('produtos');
+  if (tab === 'remove') mudarSubRem('produtos');
   document.getElementById('adminMsg').innerText = '';
   renderAdminLists();
 }
 
 function mudarSubEdit(sub) {
   storeData.subEditMode = sub;
-  document.getElementById('subEditProdBtn').style.background = (sub === 'produtos') ? 'var(--bg-card)' : 'transparent';
-  document.getElementById('subEditProdBtn').style.color = (sub === 'produtos') ? 'var(--text-main)' : 'var(--text-muted)';
-  document.getElementById('subEditSecBtn').style.background = (sub === 'secoes') ? 'var(--bg-card)' : 'transparent';
-  document.getElementById('subEditSecBtn').style.color = (sub === 'secoes') ? 'var(--text-main)' : 'var(--text-muted)';
-
   document.getElementById('wrapperEditProdutos').style.display = (sub === 'produtos') ? 'block' : 'none';
   document.getElementById('listaEditarSecoesContainer').style.display = (sub === 'secoes') ? 'block' : 'none';
-  document.getElementById('tabEditFormContent').style.display = 'none';
-  document.getElementById('tabEditSecaoFormContent').style.display = 'none';
   renderAdminLists();
 }
 
 function mudarSubRem(sub) {
   storeData.subRemMode = sub;
-  document.getElementById('subRemProdBtn').style.background = (sub === 'produtos') ? 'var(--bg-card)' : 'transparent';
-  document.getElementById('subRemProdBtn').style.color = (sub === 'produtos') ? 'var(--text-main)' : 'var(--text-muted)';
-  document.getElementById('subRemSecBtn').style.background = (sub === 'secoes') ? 'var(--bg-card)' : 'transparent';
-  document.getElementById('subRemSecBtn').style.color = (sub === 'secoes') ? 'var(--text-main)' : 'var(--text-muted)';
-
   document.getElementById('wrapperRemoveProdutos').style.display = (sub === 'produtos') ? 'block' : 'none';
   document.getElementById('listaRemoverSecoesContainer').style.display = (sub === 'secoes') ? 'block' : 'none';
   renderAdminLists();
@@ -500,7 +682,7 @@ function mudarSubRem(sub) {
 function renderAdminSelects() {
   ['prodSecaoSelect', 'editProdSecaoSelect', 'filtroEditSecaoSelect', 'filtroRemoveSecaoSelect'].forEach(id => {
     const select = document.getElementById(id);
-    if(!select) return;
+    if (!select) return;
     let html = '';
     storeData.sections.forEach(s => {
       html += `<option value="${s.id}">${s.name}</option>`;
@@ -510,84 +692,50 @@ function renderAdminSelects() {
 }
 
 function renderAdminLists() {
-  // Produtos para Editar (filtrados pela seção escolhida)
   const editContainer = document.getElementById('listaEditarContainer');
-  if(editContainer) {
+  if (editContainer) {
     const secaoFiltro = document.getElementById('filtroEditSecaoSelect')?.value;
-    const prodsFiltrados = secaoFiltro ? storeData.products.filter(p => p.section === secaoFiltro) : storeData.products;
-
+    const prods = secaoFiltro ? storeData.products.filter(p => p.section === secaoFiltro) : storeData.products;
     let html = '';
-    prodsFiltrados.forEach(p => {
-      html += `<div class="item-row">
-        <span>${p.name}</span>
-        <button class="btn-edit" onclick="carregarParaEditar('${p.id}')">Editar</button>
-      </div>`;
+    prods.forEach(p => {
+      html += `<div class="item-row"><span>${p.name}</span><button class="btn-edit" onclick="carregarParaEditar('${p.id}')">Editar</button></div>`;
     });
-    editContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted); padding: 8px 0;">Nenhum produto nesta seção.</p>';
+    editContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhum produto.</p>';
   }
 
-  // Seções para Editar
   const editSecaoContainer = document.getElementById('listaEditarSecoesContainer');
-  if(editSecaoContainer) {
+  if (editSecaoContainer) {
     let html = '';
     storeData.sections.forEach(s => {
-      html += `<div class="item-row">
-        <span>${s.name}</span>
-        <button class="btn-edit" onclick="carregarSecaoParaEditar('${s.id}')">Editar</button>
-      </div>`;
+      html += `<div class="item-row"><span>${s.name}</span><button class="btn-edit" onclick="carregarSecaoParaEditar('${s.id}')">Editar</button></div>`;
     });
-    editSecaoContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção cadastrada.</p>';
+    editSecaoContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção.</p>';
   }
 
-  // Produtos para Remover (filtrados pela seção escolhida)
   const removeProdContainer = document.getElementById('listaRemoverProdutosContainer');
-  if(removeProdContainer) {
+  if (removeProdContainer) {
     const secaoFiltroRem = document.getElementById('filtroRemoveSecaoSelect')?.value;
-    const prodsFiltradosRem = secaoFiltroRem ? storeData.products.filter(p => p.section === secaoFiltroRem) : storeData.products;
-
+    const prodsRem = secaoFiltroRem ? storeData.products.filter(p => p.section === secaoFiltroRem) : storeData.products;
     let html = '';
-    prodsFiltradosRem.forEach(p => {
-      html += `<div class="item-row">
-        <span>${p.name}</span>
-        <button class="btn-del" onclick="removerProduto('${p.id}')">Apagar</button>
-      </div>`;
+    prodsRem.forEach(p => {
+      html += `<div class="item-row"><span>${p.name}</span><button class="btn-del" onclick="removerProduto('${p.id}')">Apagar</button></div>`;
     });
-    removeProdContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted); padding: 8px 0;">Nenhum produto nesta seção.</p>';
+    removeProdContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhum produto.</p>';
   }
 
-  // Seções para Remover
   const removeSecContainer = document.getElementById('listaRemoverSecoesContainer');
-  if(removeSecContainer) {
+  if (removeSecContainer) {
     let html = '';
     storeData.sections.forEach(s => {
-      html += `<div class="item-row">
-        <span>${s.name}</span>
-        <button class="btn-del" onclick="removerSecao('${s.id}')">Apagar</button>
-      </div>`;
+      html += `<div class="item-row"><span>${s.name}</span><button class="btn-del" onclick="removerSecao('${s.id}')">Apagar</button></div>`;
     });
-    removeSecContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção para remover.</p>';
+    removeSecContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção.</p>';
   }
 }
 
-let tempFotoBase64 = '';
-document.getElementById('prodFotoInput').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      tempFotoBase64 = evt.target.result;
-      const prev = document.getElementById('prodPreview');
-      prev.src = tempFotoBase64;
-      prev.style.display = 'block';
-    }
-    reader.readAsDataURL(file);
-  }
-});
-
-let tempSecaoFotoBase64 = '';
 document.getElementById('secaoFotoInput').addEventListener('change', function(e) {
   const file = e.target.files[0];
-  if(file) {
+  if (file) {
     const reader = new FileReader();
     reader.onload = function(evt) {
       tempSecaoFotoBase64 = evt.target.result;
@@ -599,23 +747,9 @@ document.getElementById('secaoFotoInput').addEventListener('change', function(e)
   }
 });
 
-document.getElementById('editProdFotoInput').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      tempEditFotoBase64 = evt.target.result;
-      const prev = document.getElementById('editProdPreview');
-      prev.src = tempEditFotoBase64;
-      prev.style.display = 'block';
-    }
-    reader.readAsDataURL(file);
-  }
-});
-
 document.getElementById('editSecaoFotoInput').addEventListener('change', function(e) {
   const file = e.target.files[0];
-  if(file) {
+  if (file) {
     const reader = new FileReader();
     reader.onload = function(evt) {
       tempEditSecFotoBase64 = evt.target.result;
@@ -629,23 +763,12 @@ document.getElementById('editSecaoFotoInput').addEventListener('change', functio
 
 async function criarSecao() {
   const nome = document.getElementById('novaSecaoNome').value.trim();
-  if(!nome) {
-    alert('Digite o nome da seção.');
-    return;
-  }
+  if (!nome) { alert('Digite o nome da seção.'); return; }
   const id = nome.toLowerCase().replace(/[^a-z0-9]/g, '_');
-  const novaSec = { id, name: nome, img: tempSecaoFotoBase64 };
-
-  const { error } = await supabaseClient.from('sections').insert([novaSec]);
-  if(error) {
-    alert('Erro ao salvar seção: ' + error.message);
-    return;
-  }
-
-  document.getElementById('adminMsg').innerText = 'Seção criada com sucesso!';
+  const { error } = await supabaseClient.from('sections').insert([{ id, name: nome, img: tempSecaoFotoBase64 }]);
+  if (error) { alert('Erro: ' + error.message); return; }
+  document.getElementById('adminMsg').innerText = 'Seção criada!';
   document.getElementById('novaSecaoNome').value = '';
-  document.getElementById('secaoFotoInput').value = '';
-  document.getElementById('secaoPreview').style.display = 'none';
   tempSecaoFotoBase64 = '';
   await carregarDadosDoSupabase();
 }
@@ -655,57 +778,50 @@ async function salvarNovoProduto() {
   const valor = parseFloat(document.getElementById('prodValor').value);
   const secao = document.getElementById('prodSecaoSelect').value;
 
-  if(!nome || isNaN(valor)) {
-    alert('Preencha o nome e o valor corretamente.');
-    return;
-  }
+  if (!nome || isNaN(valor)) { alert('Preencha nome e valor.'); return; }
 
   const novoProd = {
     id: 'p_' + Date.now(),
     name: nome,
     price: valor,
     section: secao,
-    photo: tempFotoBase64
+    photos: fotosTempBase64.length > 0 ? fotosTempBase64 : []
   };
 
   const { error } = await supabaseClient.from('products').insert([novoProd]);
-  if(error) {
-    alert('Erro ao salvar produto: ' + error.message);
-    return;
-  }
+  if (error) { alert('Erro: ' + error.message); return; }
 
-  document.getElementById('adminMsg').innerText = 'Produto adicionado com sucesso!';
+  document.getElementById('adminMsg').innerText = 'Produto adicionado!';
   document.getElementById('prodNome').value = '';
   document.getElementById('prodValor').value = '';
-  document.getElementById('prodFotoInput').value = '';
-  document.getElementById('prodPreview').style.display = 'none';
-  tempFotoBase64 = '';
+  document.getElementById('prodFotosInput').value = '';
+  document.getElementById('prodPreviewContainer').innerHTML = '';
+  fotosTempBase64 = [];
   await carregarDadosDoSupabase();
 }
 
 function carregarParaEditar(id) {
   const p = storeData.products.find(item => item.id == id);
-  if(!p) return;
-
+  if (!p) return;
   editingProdId = p.id;
   document.getElementById('editProdId').value = p.id;
   document.getElementById('editProdNome').value = p.name;
   document.getElementById('editProdValor').value = p.price;
   document.getElementById('editProdSecaoSelect').value = p.section;
 
-  tempEditFotoBase64 = p.photo || '';
-  const prev = document.getElementById('editProdPreview');
-  if(tempEditFotoBase64) {
-    prev.src = tempEditFotoBase64;
-    prev.style.display = 'block';
-  } else {
-    prev.style.display = 'none';
-  }
+  editFotosTempBase64 = Array.isArray(p.photos) ? [...p.photos] : (p.photo ? [p.photo] : []);
+  const container = document.getElementById('editProdPreviewContainer');
+  container.innerHTML = '';
+  editFotosTempBase64.forEach(f => {
+    const img = document.createElement('img');
+    img.src = f;
+    img.style.width = '60px'; img.style.height = '60px'; img.style.objectFit = 'cover'; img.style.borderRadius = '6px';
+    container.appendChild(img);
+  });
 
   document.getElementById('wrapperEditProdutos').style.display = 'none';
   document.getElementById('listaEditarSecoesContainer').style.display = 'none';
   document.getElementById('tabEditFormContent').style.display = 'block';
-  document.getElementById('tabEditSecaoFormContent').style.display = 'none';
 }
 
 async function salvarEdicaoProduto() {
@@ -713,25 +829,19 @@ async function salvarEdicaoProduto() {
   const valor = parseFloat(document.getElementById('editProdValor').value);
   const secao = document.getElementById('editProdSecaoSelect').value;
 
-  if(!nome || isNaN(valor)) {
-    alert('Preencha os campos corretamente.');
-    return;
-  }
+  if (!nome || isNaN(valor)) { alert('Preencha os campos.'); return; }
 
   const atualizacao = {
     name: nome,
     price: valor,
     section: secao,
-    photo: tempEditFotoBase64
+    photos: editFotosTempBase64
   };
 
   const { error } = await supabaseClient.from('products').update(atualizacao).eq('id', editingProdId);
-  if(error) {
-    alert('Erro ao atualizar produto: ' + error.message);
-    return;
-  }
+  if (error) { alert('Erro: ' + error.message); return; }
 
-  document.getElementById('adminMsg').innerText = 'Produto atualizado com sucesso!';
+  document.getElementById('adminMsg').innerText = 'Produto atualizado!';
   mudarTabAdmin('edit');
   mudarSubEdit('produtos');
   await carregarDadosDoSupabase();
@@ -739,68 +849,39 @@ async function salvarEdicaoProduto() {
 
 function carregarSecaoParaEditar(id) {
   const s = storeData.sections.find(item => item.id == id);
-  if(!s) return;
-
+  if (!s) return;
   editingSecId = s.id;
   document.getElementById('editSecaoId').value = s.id;
   document.getElementById('editSecaoNome').value = s.name;
-
   tempEditSecFotoBase64 = s.img || '';
   const prev = document.getElementById('editSecaoPreview');
-  if(tempEditSecFotoBase64) {
-    prev.src = tempEditSecFotoBase64;
-    prev.style.display = 'block';
-  } else {
-    prev.style.display = 'none';
-  }
-
-  document.getElementById('wrapperEditProdutos').style.display = 'none';
+  if (tempEditSecFotoBase64) { prev.src = tempEditSecFotoBase64; prev.style.display = 'block'; }
   document.getElementById('listaEditarSecoesContainer').style.display = 'none';
-  document.getElementById('tabEditFormContent').style.display = 'none';
   document.getElementById('tabEditSecaoFormContent').style.display = 'block';
 }
 
 async function salvarEdicaoSecao() {
   const nome = document.getElementById('editSecaoNome').value.trim();
-  if(!nome) {
-    alert('Digite o nome da seção.');
-    return;
-  }
-
-  const atualizacao = {
-    name: nome,
-    img: tempEditSecFotoBase64
-  };
-
-  const { error } = await supabaseClient.from('sections').update(atualizacao).eq('id', editingSecId);
-  if(error) {
-    alert('Erro ao atualizar seção: ' + error.message);
-    return;
-  }
-
-  document.getElementById('adminMsg').innerText = 'Seção atualizada com sucesso!';
+  if (!nome) { alert('Digite o nome.'); return; }
+  const { error } = await supabaseClient.from('sections').update({ name: nome, img: tempEditSecFotoBase64 }).eq('id', editingSecId);
+  if (error) { alert('Erro: ' + error.message); return; }
+  document.getElementById('adminMsg').innerText = 'Seção atualizada!';
   mudarTabAdmin('edit');
   mudarSubEdit('secoes');
   await carregarDadosDoSupabase();
 }
 
 async function removerProduto(id) {
-  if(!confirm('Deseja realmente apagar este produto?')) return;
+  if (!confirm('Apagar este produto?')) return;
   const { error } = await supabaseClient.from('products').delete().eq('id', id);
-  if(error) {
-    alert('Erro ao apagar produto: ' + error.message);
-    return;
-  }
+  if (error) { alert('Erro: ' + error.message); return; }
   await carregarDadosDoSupabase();
 }
 
 async function removerSecao(id) {
-  if(!confirm('Deseja realmente apagar esta seção?')) return;
+  if (!confirm('Apagar esta seção?')) return;
   const { error } = await supabaseClient.from('sections').delete().eq('id', id);
-  if(error) {
-    alert('Erro ao apagar seção: ' + error.message);
-    return;
-  }
+  if (error) { alert('Erro: ' + error.message); return; }
   await carregarDadosDoSupabase();
 }
 

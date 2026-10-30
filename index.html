@@ -5,14 +5,14 @@
 <title>TD Mundo 3D</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #f8f9fa; color: #333333; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.5; }
-.app-container { min-height: 100vh; display: flex; flex-direction: column; background-color: #f8f9fa; }
-header { padding: 32px 20px; text-align: center; border-bottom: 1px solid #e5e5e5; background: #ffffff; }
-header h1 { font-size: 24px; color: #111111; font-weight: 700; cursor: pointer; user-select: none; }
+body { background: #f8f9fa; color: #333; font-family: sans-serif; font-size: 16px; line-height: 1.5; }
+.app-container { min-height: 100vh; display: flex; flex-direction: column; background: #f8f9fa; }
+header { padding: 32px 20px; text-align: center; border-bottom: 1px solid #e5e5e5; background: #fff; }
+header h1 { font-size: 24px; color: #111; cursor: pointer; user-select: none; }
 main { max-width: 1100px; width: 100%; margin: 0 auto; padding: 24px 20px; flex: 1; }
-.section-title { font-size: 16px; font-weight: 600; color: #111111; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #111111; text-transform: uppercase; }
+.section-title { font-size: 16px; font-weight: 600; color: #111; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #111; text-transform: uppercase; }
 .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-.product-card { background: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden; padding: 14px; }
+.product-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden; padding: 14px; }
 .wa-btn { display: block; text-align: center; margin-top: 10px; padding: 9px; background: #111; color: #fff; text-decoration: none; border-radius: 6px; font-size: 13px; }
 aside { position: fixed; left: 0; top: 0; bottom: 0; width: 320px; background: #fff; border-right: 1px solid #ddd; padding: 24px; transform: translateX(-105%); transition: transform 0.3s; z-index: 50; box-shadow: 4px 0 20px rgba(0,0,0,0.1); overflow-y: auto; }
 .admin-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
@@ -57,7 +57,7 @@ aside { position: fixed; left: 0; top: 0; bottom: 0; width: 320px; background: #
         <input type="text" id="novoPreco" placeholder="39.90">
       </div>
       <button class="admin-btn" onclick="adicionarProduto()">Salvar Produto</button>
-      <br>
+      <br><br>
       <button class="admin-btn" style="background:#cc0000;" onclick="toggleAdmin()">Fechar Painel</button>
     </div>
   </aside>

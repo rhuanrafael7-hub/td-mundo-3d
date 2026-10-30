@@ -74,7 +74,7 @@
   .section-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle); text-transform: uppercase; letter-spacing: 1.5px; display: flex; align-items: center; gap: 10px; }
   .section-title::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
 
-  /* Grelha de Produtos em EXATAMENTE 2 colunas (Esquerda e Direita) */
+  /* Grelha de Produtos do Catálogo (2 Colunas) */
   .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .product-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
   .product-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
@@ -92,7 +92,7 @@
   .wa-btn { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 9px 10px; background: var(--whatsapp); color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 600; border-radius: 8px; transition: background 0.2s, transform 0.1s; }
   .wa-btn:hover { background: var(--whatsapp-hover); }
 
-  /* Painel Administrativo Lateral (Overlay com Glassmorphism) */
+  /* Painel Administrativo Lateral */
   aside { position: fixed; left: 0; top: 0; bottom: 0; z-index: 50; width: min(420px, 92vw); background: #121217; border-right: 1px solid var(--border-subtle); box-shadow: 10px 0 40px rgba(0,0,0,0.6); overflow-y: auto; padding: 28px; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateX(-105%); }
   .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
   .admin-header h3 { font-size: 16px; font-weight: 700; color: var(--text-main); letter-spacing: 0.5px; }
@@ -114,11 +114,10 @@
   .sub-admin-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 16px; background: var(--bg-surface); padding: 4px; border-radius: 8px; border: 1px solid var(--border-subtle); }
   .sub-admin-tab { padding: 8px; font-size: 12px; font-weight: 600; border-radius: 6px; text-align: center; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
 
-  /* Grelha de itens do painel admin em formato de 2 colunas */
-  .admin-list-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .item-card { display: flex; flex-direction: column; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--bg-surface); font-size: 13px; }
-  .item-card span { font-weight: 600; color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .item-card button { width: 100%; padding: 6px; font-size: 11px; font-weight: 700; border-radius: 6px; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; }
+  /* Lista Admin individual (um a um, testado e funcional) */
+  .item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 8px; background: var(--bg-surface); font-size: 13px; }
+  .item-row span { font-weight: 500; color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+  .item-row button { padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 6px; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
   
   .btn-edit { background: var(--accent); }
   .btn-edit:hover { background: var(--accent-hover); }
@@ -211,13 +210,22 @@
         <button class="admin-primary-btn" onclick="criarSecao()">Criar Seção</button>
       </div>
 
-      <!-- Aba Editar (Lista) -->
+      <!-- Aba Editar (Com Filtro de Seção para Produtos) -->
       <div id="tabEditContent" style="display:none;">
         <div class="sub-admin-tabs">
           <button class="sub-admin-tab" id="subEditProdBtn" onclick="mudarSubEdit('produtos')">Produtos</button>
           <button class="sub-admin-tab" id="subEditSecBtn" onclick="mudarSubEdit('secoes')">Seções</button>
         </div>
-        <div id="listaEditarContainer"></div>
+        
+        <!-- Contâiner para Produtos com Filtro de Seção -->
+        <div id="wrapperEditProdutos">
+          <div class="admin-form-group" style="margin-bottom: 12px;">
+            <label>Filtrar por Seção:</label>
+            <select id="filtroEditSecaoSelect" onchange="renderAdminLists()"></select>
+          </div>
+          <div id="listaEditarContainer"></div>
+        </div>
+
         <div id="listaEditarSecoesContainer" style="display:none;"></div>
       </div>
 
@@ -267,14 +275,23 @@
         <button class="admin-primary-btn" onclick="salvarEdicaoSecao()">Atualizar Seção</button>
       </div>
 
-      <!-- Aba Remover -->
+      <!-- Aba Remover (Com Filtro de Seção para Produtos) -->
       <div id="tabRemoveContent" style="display:none;">
         <div style="font-size:14px; font-weight:700; color:var(--text-main); margin-bottom:14px; text-transform:uppercase;">Remover Itens</div>
         <div class="sub-admin-tabs">
           <button class="sub-admin-tab" id="subRemProdBtn" onclick="mudarSubRem('produtos')">Produtos</button>
           <button class="sub-admin-tab" id="subRemSecBtn" onclick="mudarSubRem('secoes')">Seções</button>
         </div>
-        <div id="listaRemoverProdutosContainer"></div>
+
+        <!-- Contâiner para Remover Produtos com Filtro de Seção -->
+        <div id="wrapperRemoveProdutos">
+          <div class="admin-form-group" style="margin-bottom: 12px;">
+            <label>Filtrar por Seção:</label>
+            <select id="filtroRemoveSecaoSelect" onchange="renderAdminLists()"></select>
+          </div>
+          <div id="listaRemoverProdutosContainer"></div>
+        </div>
+
         <div id="listaRemoverSecoesContainer" style="display:none;"></div>
       </div>
 
@@ -461,10 +478,11 @@ function mudarSubEdit(sub) {
   document.getElementById('subEditSecBtn').style.background = (sub === 'secoes') ? 'var(--bg-card)' : 'transparent';
   document.getElementById('subEditSecBtn').style.color = (sub === 'secoes') ? 'var(--text-main)' : 'var(--text-muted)';
 
-  document.getElementById('listaEditarContainer').style.display = (sub === 'produtos') ? 'block' : 'none';
+  document.getElementById('wrapperEditProdutos').style.display = (sub === 'produtos') ? 'block' : 'none';
   document.getElementById('listaEditarSecoesContainer').style.display = (sub === 'secoes') ? 'block' : 'none';
   document.getElementById('tabEditFormContent').style.display = 'none';
   document.getElementById('tabEditSecaoFormContent').style.display = 'none';
+  renderAdminLists();
 }
 
 function mudarSubRem(sub) {
@@ -474,12 +492,13 @@ function mudarSubRem(sub) {
   document.getElementById('subRemSecBtn').style.background = (sub === 'secoes') ? 'var(--bg-card)' : 'transparent';
   document.getElementById('subRemSecBtn').style.color = (sub === 'secoes') ? 'var(--text-main)' : 'var(--text-muted)';
 
-  document.getElementById('listaRemoverProdutosContainer').style.display = (sub === 'produtos') ? 'block' : 'none';
+  document.getElementById('wrapperRemoveProdutos').style.display = (sub === 'produtos') ? 'block' : 'none';
   document.getElementById('listaRemoverSecoesContainer').style.display = (sub === 'secoes') ? 'block' : 'none';
+  renderAdminLists();
 }
 
 function renderAdminSelects() {
-  ['prodSecaoSelect', 'editProdSecaoSelect'].forEach(id => {
+  ['prodSecaoSelect', 'editProdSecaoSelect', 'filtroEditSecaoSelect', 'filtroRemoveSecaoSelect'].forEach(id => {
     const select = document.getElementById(id);
     if(!select) return;
     let html = '';
@@ -491,56 +510,62 @@ function renderAdminSelects() {
 }
 
 function renderAdminLists() {
+  // Produtos para Editar (filtrados pela seção escolhida)
   const editContainer = document.getElementById('listaEditarContainer');
   if(editContainer) {
-    let html = '<div class="admin-list-grid">';
-    storeData.products.forEach(p => {
-      html += `<div class="item-card">
+    const secaoFiltro = document.getElementById('filtroEditSecaoSelect')?.value;
+    const prodsFiltrados = secaoFiltro ? storeData.products.filter(p => p.section === secaoFiltro) : storeData.products;
+
+    let html = '';
+    prodsFiltrados.forEach(p => {
+      html += `<div class="item-row">
         <span>${p.name}</span>
         <button class="btn-edit" onclick="carregarParaEditar('${p.id}')">Editar</button>
       </div>`;
     });
-    html += '</div>';
-    editContainer.innerHTML = storeData.products.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhum produto cadastrado.</p>';
+    editContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted); padding: 8px 0;">Nenhum produto nesta seção.</p>';
   }
 
+  // Seções para Editar
   const editSecaoContainer = document.getElementById('listaEditarSecoesContainer');
   if(editSecaoContainer) {
-    let html = '<div class="admin-list-grid">';
+    let html = '';
     storeData.sections.forEach(s => {
-      html += `<div class="item-card">
+      html += `<div class="item-row">
         <span>${s.name}</span>
         <button class="btn-edit" onclick="carregarSecaoParaEditar('${s.id}')">Editar</button>
       </div>`;
     });
-    html += '</div>';
-    editSecaoContainer.innerHTML = storeData.sections.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção cadastrada.</p>';
+    editSecaoContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção cadastrada.</p>';
   }
 
+  // Produtos para Remover (filtrados pela seção escolhida)
   const removeProdContainer = document.getElementById('listaRemoverProdutosContainer');
   if(removeProdContainer) {
-    let html = '<div class="admin-list-grid">';
-    storeData.products.forEach(p => {
-      html += `<div class="item-card">
+    const secaoFiltroRem = document.getElementById('filtroRemoveSecaoSelect')?.value;
+    const prodsFiltradosRem = secaoFiltroRem ? storeData.products.filter(p => p.section === secaoFiltroRem) : storeData.products;
+
+    let html = '';
+    prodsFiltradosRem.forEach(p => {
+      html += `<div class="item-row">
         <span>${p.name}</span>
         <button class="btn-del" onclick="removerProduto('${p.id}')">Apagar</button>
       </div>`;
     });
-    html += '</div>';
-    removeProdContainer.innerHTML = storeData.products.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhum produto para remover.</p>';
+    removeProdContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted); padding: 8px 0;">Nenhum produto nesta seção.</p>';
   }
 
+  // Seções para Remover
   const removeSecContainer = document.getElementById('listaRemoverSecoesContainer');
   if(removeSecContainer) {
-    let html = '<div class="admin-list-grid">';
+    let html = '';
     storeData.sections.forEach(s => {
-      html += `<div class="item-card">
+      html += `<div class="item-row">
         <span>${s.name}</span>
         <button class="btn-del" onclick="removerSecao('${s.id}')">Apagar</button>
       </div>`;
     });
-    html += '</div>';
-    removeSecContainer.innerHTML = storeData.sections.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção para remover.</p>';
+    removeSecContainer.innerHTML = html.length ? html : '<p style="font-size:13px; color:var(--text-muted);">Nenhuma seção para remover.</p>';
   }
 }
 
@@ -677,7 +702,7 @@ function carregarParaEditar(id) {
     prev.style.display = 'none';
   }
 
-  document.getElementById('listaEditarContainer').style.display = 'none';
+  document.getElementById('wrapperEditProdutos').style.display = 'none';
   document.getElementById('listaEditarSecoesContainer').style.display = 'none';
   document.getElementById('tabEditFormContent').style.display = 'block';
   document.getElementById('tabEditSecaoFormContent').style.display = 'none';
@@ -729,7 +754,7 @@ function carregarSecaoParaEditar(id) {
     prev.style.display = 'none';
   }
 
-  document.getElementById('listaEditarContainer').style.display = 'none';
+  document.getElementById('wrapperEditProdutos').style.display = 'none';
   document.getElementById('listaEditarSecoesContainer').style.display = 'none';
   document.getElementById('tabEditFormContent').style.display = 'none';
   document.getElementById('tabEditSecaoFormContent').style.display = 'block';
